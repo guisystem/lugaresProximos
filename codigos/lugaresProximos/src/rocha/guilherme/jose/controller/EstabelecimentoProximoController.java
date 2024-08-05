@@ -6,26 +6,30 @@ import rocha.guilherme.jose.view.EstabelecimentoProximoTela;
 
 public class EstabelecimentoProximoController {
 
-	private final EstabelecimentoProximoTela estabelecimentoProximoTela;
+	private final EstabelecimentoProximoTela estabelecimentoProximoAvaliadoTela;
 	private final EstabelecimentoProximoHelper helper;
 	
-	public EstabelecimentoProximoController(EstabelecimentoProximoTela estabelecimentoProximoTela) {
+	public EstabelecimentoProximoController(EstabelecimentoProximoTela estabelecimentoProximoAvaliadoTela) {
 		super();
-		this.estabelecimentoProximoTela = estabelecimentoProximoTela;
-		this.helper = new EstabelecimentoProximoHelper(estabelecimentoProximoTela);
+		this.estabelecimentoProximoAvaliadoTela = estabelecimentoProximoAvaliadoTela;
+		this.helper = new EstabelecimentoProximoHelper(estabelecimentoProximoAvaliadoTela);
 	}
 
 	public void pesquisarNoMapa() {
 		ModelEstabelecimento estabelecimento = helper.obterLugar();
 		
 		if(helper.verificarCampos()) {
-			if(helper.validarCidadeEstado()) {
-				estabelecimento.mostrarNoMapa();
+			if(helper.verificarSelecaoAvaliacao()) {
+				if(helper.validarEstado()) {
+					estabelecimento.mostrarNoMapa();
+				}else {
+					estabelecimentoProximoAvaliadoTela.exibeMensagemInformativa("O estado deve conter apenas letras.");
+				}
 			}else {
-				estabelecimentoProximoTela.exibeMensagemInformativa("A cidade e o estado deve conter apenas letras.");
+				estabelecimentoProximoAvaliadoTela.exibeMensagemInformativa("Selecione uma avaliação minima de estrelas para o(a) " + estabelecimento.getNome() + ".");
 			}
 		}else {
-			estabelecimentoProximoTela.exibeMensagemInformativa("Preencha todos os campos.");
+			estabelecimentoProximoAvaliadoTela.exibeMensagemInformativa("Preencha todos os campos.");
 		}
 	}
 
@@ -33,4 +37,5 @@ public class EstabelecimentoProximoController {
 		helper.limparTela();
 		
 	}
+
 }
