@@ -58,7 +58,7 @@ public class ModelEstabelecimento {
 	    String avaliacao = avaliacaoURL();
 	    
         try {
-        	String urlString = "https://www.google.com/maps/search/" + nomeURL + "+" + cidadeURL + "+" + estadoURL + "/@-0.0000000,-00.0000000,16z/data=!3m1!4b1!4m8!2m7!5m5!" + avaliacao + "!5m2!4m1!1i2!10e4!6e3?entry=ttu";
+        	String urlString = "https://www.google.com/maps/search/" + nomeURL + "+" + cidadeURL + "+" + estadoURL + "/@-8.3011162,-35.9861232,16z/data=!3m1!4b1!4m8!2m7!5m5!" + avaliacao + "!5m2!4m1!1i2!10e4!6e3?entry=ttu";
         	Desktop.getDesktop().browse(new URL(urlString).toURI());
 		} catch (IOException | URISyntaxException e) {
 			e.printStackTrace();

@@ -1,5 +1,6 @@
 package rocha.guilherme.jose.controller;
 
+import rocha.guilherme.jose.api.Lugar;
 import rocha.guilherme.jose.controller.helper.EstabelecimentoProximoHelper;
 import rocha.guilherme.jose.model.ModelEstabelecimento;
 import rocha.guilherme.jose.view.EstabelecimentoProximoTela;
@@ -21,7 +22,15 @@ public class EstabelecimentoProximoController {
 		if(helper.verificarCampos()) {
 			if(helper.verificarSelecaoAvaliacao()) {
 				if(helper.validarEstado()) {
-					estabelecimento.mostrarNoMapa();
+					if(Lugar.estadoExiste(estabelecimento.getEstado())) {
+						if(Lugar.cidadeExiste(estabelecimento.getCidade(), estabelecimento.getEstado())) {
+							estabelecimento.mostrarNoMapa();
+						}else {
+							estabelecimentoProximoAvaliadoTela.exibeMensagemInformativa("A cidade não existe no estado de(o) " + estabelecimento.getEstado() + ".");
+						}
+					}else {
+						estabelecimentoProximoAvaliadoTela.exibeMensagemInformativa("O estado não existe.");
+					}
 				}else {
 					estabelecimentoProximoAvaliadoTela.exibeMensagemInformativa("O estado deve conter apenas letras.");
 				}
